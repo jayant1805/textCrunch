@@ -1,18 +1,14 @@
 <?php
-    include("config.php");
-    include('session.php');
-
-    // Check user login or not
-    if(!isset($_SESSION['myusername'])){
-        header('Location: search.php');
-    }
-
-    // logout
-    if(isset($_POST['logout'])){
-        session_destroy();
-        header('Location: index.php');
-    }
-
+//   include('session.php');
+   include("config.php");
+/*  // Initialize the session
+ session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: logindraft.php");
+    exit;
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -61,13 +57,13 @@
                     </div>
                     <div class="main-menubar d-flex align-items-center">
                           <div class="button-group-area mt-40">
-                          <a href="#" name="" class="genric-btn primary-border radius">View My Listings<span class="lnr lnr-arrow-right"></span></a>
+                          <a href="#" class="genric-btn primary-border radius">View My Listings<span class="lnr lnr-arrow-right"></span></a>
                           </div>&nbsp;
                           <div class="button-group-area mt-40">
-                          <a href="search.php" name="search" class="genric-btn primary-border radius">Home<span class="lnr lnr-arrow-right"></span></a>
+                          <a href="search.php" class="genric-btn primary-border radius">Home<span class="lnr lnr-arrow-right"></span></a>
                           </div>&nbsp;
                            <div class="button-group-area mt-40">
-                          <a href="index.php" name="logout" class="genric-btn primary-border radius">Log Out<span class="lnr lnr-arrow-right"></span></a>
+                          <a href="#" class="genric-btn primary-border radius">Log Out<span class="lnr lnr-arrow-right"></span></a>
                           </div>
                     </div>
           </div>

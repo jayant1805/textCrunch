@@ -1,49 +1,31 @@
-<?php
-   include("config.php");
+ <?php
+/*
+   if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password'])) {
+       username and password sent from form
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+       $myusername = mysqli_real_escape_string($db,$_POST['username']);
+       $mypassword = mysqli_real_escape_string($db,$_POST['password']);
 
-   session_start();
+       $sql = "SELECT * FROM USERS WHERE User_name = '$myusername' and User_password = '$mypassword'";
+       $result = mysqli_query($db,$sql);
+       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+       $active = $row['active'];
 
-   $msg = '';
+       $count = mysqli_num_rows($result);
 
-   if (isset($_POST['login']) && !empty($_POST['username'])
-      && !empty($_POST['password'])) {
+       // If result matched $myusername and $mypassword, table row must be 1 row
 
-      if ($_POST['username'] == 'username' &&
-         $_POST['password'] == '1234') {
-         // $_SESSION['valid'] = true;
-         // $_SESSION['timeout'] = time();
-         // $_SESSION['username'] = 'tutorialspoint';
+      if($count == 1) {
+          //session_register("myusername");
+          $_SESSION['myusername'] = $myusername;
+          header("location: search.php");
 
-         echo 'You have entered valid use name and password';
-      }else {
-         $msg = 'Wrong username or password';
-      }
-   }
-   // if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password'])) {
-       // username and password sent from form
-   // if($_SERVER["REQUEST_METHOD"] == "POST") {
-   //     $myusername = mysqli_real_escape_string($db,$_POST['username']);
-   //     $mypassword = mysqli_real_escape_string($db,$_POST['password']);
-   //
-   //     $sql = "SELECT * FROM USERS WHERE User_name = '$myusername' and User_password = '$mypassword'";
-   //     $result = mysqli_query($db,$sql);
-   //     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-   //     $active = $row['active'];
-   //
-   //     $count = mysqli_num_rows($result);
-   //
-   //     // If result matched $myusername and $mypassword, table row must be 1 row
-   //
-   //    if($count == 1) {
-   //        //session_register("myusername");
-   //        $_SESSION['myusername'] = $myusername;
-   //        header("location: search.php");
-   //
-   //     }else {
-   //        $error = "Your Login Name or Password is invalid";
-   //        echo $error;
-   //     }
-   //  }
+       }else {
+          $error = "Your Login Name or Password is invalid";
+          echo $error;
+       }
+    }
+    */
 ?>
 
 <!DOCTYPE html>
@@ -104,20 +86,20 @@
         <h1 class="user__title">Login</h1>
     </header>
 
-    <form class="form" action="post">
+    <form method="post" action="auth_login.php" class="form" >
         <div class="form__group">
-            <input type="text" name="username" value="username" placeholder="Username" class="form__input" />
+            <input type="text" name="username" placeholder="Username" class="form__input" />
         </div>
 
-        <div class="form__group">
+        <!-- <div class="form__group">
             <input type="email" name="email" value="email"placeholder="Email" class="form__input" />
-        </div>
+        </div> -->
 
         <div class="form__group">
-            <input type="password" name="password" value="password" placeholder="Password" class="form__input" />
+            <input type="password" name="password" placeholder="Password" class="form__input" />
         </div>
 
-        <button class="btn" name="login" value="login" type="button">Login</button>
+        <button class="btn" name="login" type="submit">Login</button>
     </form>
   </div>
   </div>

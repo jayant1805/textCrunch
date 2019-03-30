@@ -1,4 +1,24 @@
 <?php
+// Function to obtain mysqli connection.
+function get_mysqli_conn()
+{
+$dbhost = 'localhost';
+$dbuser = 'ndhingra';
+$dbpassword = 'Winter@*%2019';
+$dbname = 'ndhingra';
+$mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
+if ($mysqli->connect_errno)
+{
+echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error;
+}
+return $mysqli;
+}
+?>
+
+
+
+<?php
+/*
    define('DB_SERVER', 'localhost');
    define('DB_USERNAME', 'ndhingra');
    define('DB_PASSWORD', 'Winter@*%2019');
@@ -8,18 +28,19 @@
     echo 'Failed to connect to MySQL: (' . $db->connect_errno . ') ' . $db->connect_error;
     }
 
-    // Function to obtain mysqli connection.
-//   function get_mysqli_conn()
-//   {
-//   $dbhost = 'localhost';
-//   $dbuser = 'r6bhatt';
-//   $dbpassword = 'Winter@*%2019';
-//   $dbname = 'r6bhatt';
-//   $mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
-//   if ($mysqli->connect_errno)
-//   {
-//   echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error;
-//   }
-//   return $mysqli;
-// }
+    Function to obtain mysqli connection.
+  function get_mysqli_conn()
+  {
+  $dbhost = 'localhost';
+  $dbuser = 'r6bhatt';
+  $dbpassword = 'Winter@*%2019';
+  $dbname = 'r6bhatt';
+  $mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
+  if ($mysqli->connect_errno)
+  {
+  echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error;
+  }
+  return $mysqsli;
+}
+*/
 ?>

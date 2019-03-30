@@ -1,28 +1,31 @@
 <?php
-	include("config.php");
-
-
-// If form submitted, insert values into the database.
-if (isset($_REQUEST['username'])){
-        // removes backslashes
-	$username = stripslashes($_REQUEST['username']);
-        //escapes special characters in a string
-	$username = mysqli_real_escape_string($db,$username);
-	$email = stripslashes($_REQUEST['email']);
-	$email = mysqli_real_escape_string($db,$email);
-	$password = stripslashes($_REQUEST['password']);
-	$password = mysqli_real_escape_string($db,$password);
-
-	$query = "INSERT into `USERS` (User_name, User_email, User_password) VALUES ('$username', '$email', '$password')";
-  $result = mysqli_query($db,$query);
-    if($result){
-            echo "<div class='form'>
-						<h3>You are registered successfully.</h3>
-						<br/>Click here to <a href='login.php'>Login</a></div>";
-        }
-    }else{
-		}
+// Enable error logging:
+error_reporting(E_ALL ^ E_NOTICE);
+// mysqli connection via user-defined function
+//establishes a connection with database
+include('./config.php');
+$mysqli = get_mysqli_conn();
+$username = stripcslashes($_POST['username']);
+$email = stripcslashes($_POST['email']);
+$password = stripcslashes($_POST['password']);
+if($username && $email && $password){
+$query = "INSERT INTO USERS (User_name,User_email,User_password) VALUES (?,?,?)";
+$stmt = $mysqli->prepare($query);
+$stmt->bind_param('sss', $username, $email, $password);
+if ($stmt->execute()){
+  header("Location: welcome.php?username=$username");
+}
+else{
+  echo '<h1>Failure!</h1>';
+}
+$stmt->close();
+		
+}
+else{
+	echo '<h1>Please enter all required fields</h1>';
+}	
 ?>
+
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -41,26 +44,32 @@ if (isset($_REQUEST['username'])){
 <body>
 
   <div class="user">
+
     <header class="user__header">
         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
         <h1 class="user__title">Sign-up form</h1>
     </header>
 
-    <form name="registration" action="" method="post" class="form">
+   
+	<form name="registration" action="" method="post" class="form">
         <div class="form__group">
             <input type="text" name="username" placeholder="Username" class="form__input" />
         </div>
 
         <div class="form__group">
-            <input type="email" name="email" placeholder="Email" class="form__input" />
+            <input value = "" type="email" name="email" placeholder="Email" class="form__input" />
         </div>
 
         <div class="form__group">
             <input type="password" name="password" placeholder="Password" class="form__input" />
         </div>
 
-        <button class="btn" type="button">Register</button>
-    </form>
+        <div class = "submit">
+		<br>
+		<button type="submit" class="btn btn-primary btn-lg" value = "Register">Register</button>
+		</div>
+	</form>
+
 </div>
 
 
