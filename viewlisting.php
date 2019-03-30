@@ -1,6 +1,17 @@
 <?php
-   //include('session.php');
-   include("config.php");
+// Enable error logging:
+error_reporting(E_ALL ^ E_NOTICE);
+// mysqli connection via user-defined function
+//establishes a connection with database
+include('./config.php');
+$mysqli = get_mysqli_conn();
+
+$query = "SELECT l.Name, l.Author, l.Price, l.Image, l.ISBN, l.Additional_Information
+. FROM((LISTINGS l NATURAL JOIN HAS h) NATURAL JOIN USERS u) WHERE h.USERID = 1";
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +85,7 @@
                     <div class="col-lg-6">
                      <div id="mc_embed_signup">
                         <h3 class="mb-30">My Listings</h3>
-                        
+
 
                           </div>
                         </form>

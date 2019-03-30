@@ -20,6 +20,7 @@ if(mysqli_num_rows($result) > 0){
   echo 'test';
   header("Location: search.php?username=$username");
 }
+
 else{
   echo "Invalid";
 }
