@@ -41,7 +41,7 @@
         <div class="header-wrap">
           <div class="header-top d-flex justify-content-between align-items-center">
                     <div class="logo">
-                      <a href="index.html">
+                      <a href="index.php">
                         <div class="Logo">
                         <h1>TextCrunch <br>
                         </div>
@@ -66,7 +66,7 @@
 
 
         <footer class="section-gap footer-widget-area">
-        <div class="section-top-border">
+        <section class="section-top-border">
           <div class="row">
             <div class="col-lg-8 col-md-8">
               <div class="overlay"></div>

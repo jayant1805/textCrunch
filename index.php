@@ -42,7 +42,7 @@
 				<div class="header-wrap">
 					<div class="header-top d-flex justify-content-between align-items-center">
 						<div class="logo">
-							<a href="index.html">
+							<a href="index.php">
 								<div class="Logo">
 								<h1>TextCrunch <br>
 								</div>
@@ -50,7 +50,7 @@
 						</div>
 						<div class="main-menubar d-flex align-items-center">
 							<nav class = hide>
-								<a href="index.html"></a>
+								<a href="index.php"></a>
 								<a href="generic.html">Generic</a>
 								<a href="elements.html">Elements</a>
 							</nav>
