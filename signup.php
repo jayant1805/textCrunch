@@ -12,18 +12,20 @@ if($username && $email && $password){
 $query = "INSERT INTO USERS (User_name,User_email,User_password) VALUES (?,?,?)";
 $stmt = $mysqli->prepare($query);
 $stmt->bind_param('sss', $username, $email, $password);
+
 if ($stmt->execute()){
   header("Location: welcome.php?username=$username");
 }
 else{
   echo '<h1>Failure!</h1>';
+
 }
 $stmt->close();
-		
+
 }
 else{
 	echo '<h1>Please enter all required fields</h1>';
-}	
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +52,7 @@ else{
         <h1 class="user__title">Sign-up form</h1>
     </header>
 
-   
+
 	<form name="registration" action="" method="post" class="form">
         <div class="form__group">
             <input type="text" name="username" placeholder="Username" class="form__input" />

@@ -1,4 +1,7 @@
  <?php
+include("config.php");
+session_start();
+
 /*
    if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password'])) {
        username and password sent from form

@@ -4,13 +4,17 @@ error_reporting(E_ALL ^ E_NOTICE);
 // mysqli connection via user-defined function
 //establishes a connection with database
 include('./config.php');
+
+session_start();
+
 $mysqli = get_mysqli_conn();
 
-$query = "SELECT l.Name, l.Author, l.Price, l.Image, l.ISBN, l.Additional_Information
-. FROM((LISTINGS l NATURAL JOIN HAS h) NATURAL JOIN USERS u) WHERE h.USERID = 1";
+$username = $_SESSION['username'];
+$userid = $_SESSION['userid'];
 
+$query = "SELECT l.Name, l.Author, l.Price, l.Image, l.ISBN, l.Additional_Information FROM((LISTINGS l NATURAL JOIN HAS h) NATURAL JOIN USERS u) WHERE h.USERID = $userid";
 
-
+$result = mysqli_query($mysqli, $query);
 
 ?>
 
@@ -59,14 +63,14 @@ $query = "SELECT l.Name, l.Author, l.Price, l.Image, l.ISBN, l.Additional_Inform
                       </a>
                     </div>
                     <div class="main-menubar d-flex align-items-center">
-                          <div class="button-group-area mt-40">
+                          <!-- <div class="button-group-area mt-40">
                           <a href="#" class="genric-btn primary-border radius">View My Listings<span class="lnr lnr-arrow-right"></span></a>
-                          </div>&nbsp;
+                          </div>&nbsp; -->
                           <div class="button-group-area mt-40">
                           <a href="search.php" class="genric-btn primary-border radius">Home<span class="lnr lnr-arrow-right"></span></a>
                           </div>&nbsp;
                            <div class="button-group-area mt-40">
-                          <a href="#" class="genric-btn primary-border radius">Log Out<span class="lnr lnr-arrow-right"></span></a>
+                          <a href="logout.php" class="genric-btn primary-border radius">Log Out<span class="lnr lnr-arrow-right"></span></a>
                           </div>
                     </div>
           </div>
@@ -86,7 +90,41 @@ $query = "SELECT l.Name, l.Author, l.Price, l.Image, l.ISBN, l.Additional_Inform
                      <div id="mc_embed_signup">
                         <h3 class="mb-30">My Listings</h3>
 
+<!-- PHP script in between to access data and put it into the table -->
+<table align="left" border = "1px" style="width:600px; line-height:40px;">
+  <th> Name </th>
+  <th> Author </th>
+  <th> Price </th>
+  <th> ISBN </th>
+  <th> Additional_Information </th>
 
+  <?php
+
+  if(mysqli_num_rows($result) > 0){
+    //outputting data to table
+    while($row = mysqli_fetch_assoc($result)){
+
+  ?>
+
+<tr>
+  <td><?php echo $row["Name"]; ?></td>
+  <td><?php echo $row["Author"]; ?></td>
+  <td><?php echo $row['Price']; ?></td>
+  <td><?php echo $row['ISBN']; ?></td>
+  <td><?php echo $row['Additional_Information']; ?></td>
+</tr>
+<!--      echo "Name: " . $row["Name"]. " - Author: " . $row["Author"] . " - Price: " . $row["Price"] . " - ISBN: " . $row["ISBN"] . " - Addn Info. " . $row["Additional_Information"] . "<br>";
+-->
+  <?php  }
+
+  }
+
+  else{
+    echo "0 Results";
+  }
+
+  ?>
+</table>
                           </div>
                         </form>
                         </div>
