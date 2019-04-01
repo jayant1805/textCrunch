@@ -57,9 +57,9 @@
                           <div class="button-group-area mt-40">
                           <a href="viewlisting.php" class="genric-btn primary-border radius">View My Listings<span class="lnr lnr-arrow-right"></span></a>
                           </div>&nbsp;
-                          <div class="button-group-area mt-40">
+                          <!-- <div class="button-group-area mt-40">
                           <a href="search.php" class="genric-btn primary-border radius">Home<span class="lnr lnr-arrow-right"></span></a>
-                          </div>&nbsp;
+                          </div>&nbsp; -->
                            <div class="button-group-area mt-40">
                           <a href="logout.php" class="genric-btn primary-border radius">Log Out<span class="lnr lnr-arrow-right"></span></a>
                           </div>
@@ -80,12 +80,14 @@
                     <div class="col-lg-6">
                      <div id="mc_embed_signup">
                         <h3 class="mb-30">Buy a TextBook</h3>
-                        <form method="post" action="auth_search.php"><!---change this--->
-                          <input type="text" name="textauthor" placeholder="Textbook Name or ISBN or Author" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Textbook Name or ISBN or Author'" required>
+                        <form method="post" action="auth_search.php">
+                          <div class="mt-10">
+                          <input type="text" name="textauthor" placeholder="Textbook Name or ISBN or Author" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Textbook Name or ISBN or Author'" required class="single-input"></div>
                           <div style="position: absolute; left: -5000px; ">
                             <input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
                           </div>
-                          <button class="primary-btn">Search<span class="lnr lnr-arrow-right"></span></button>
+                          <br><center>
+                          <button class="primary-btn">Search<span class="lnr lnr-arrow-right"></span></button></center>
                           <div class="info"></div>
                         </form>
                       <br>
@@ -93,7 +95,7 @@
 
                       <div id="mc_embed_signup">
                       <h3 class="mb-30">Sell a textbook</h3>
-                      <<form method="post" action="MakeAListing.php" accept="image/gif, image/jpeg">
+                      <<form method="post" action="addListing.php" accept="image/gif, image/jpeg">
                         <div class="mt-10">
                         <input type="text" name="textbookname" placeholder="Textbook Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Textbook Name'" required class="single-input">
                         </div>
@@ -115,7 +117,7 @@
 
                           <div class="button-group-area mt-10">
                             <br><center>
-                            <input type="submit" value="Submit"></center>
+                            <button class="primary-btn">Search<span class="lnr lnr-arrow-right"></span></button></center>
                           </div>
                         </form>
                         </div>

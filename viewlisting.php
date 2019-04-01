@@ -1,23 +1,3 @@
-<?php
-// Enable error logging:
-error_reporting(E_ALL ^ E_NOTICE);
-// mysqli connection via user-defined function
-//establishes a connection with database
-include('./config.php');
-
-session_start();
-
-$mysqli = get_mysqli_conn();
-
-$username = $_SESSION['username'];
-$userid = $_SESSION['userid'];
-
-$query = "SELECT l.Name, l.Author, l.Price, l.Image, l.ISBN, l.Additional_Information FROM((LISTINGS l NATURAL JOIN HAS h) NATURAL JOIN USERS u) WHERE h.USERID = $userid";
-
-$result = mysqli_query($mysqli, $query);
-
-?>
-
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -47,6 +27,7 @@ $result = mysqli_query($mysqli, $query);
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/table.css">
   </head>
 
 <body class = "dup-body">
@@ -63,9 +44,6 @@ $result = mysqli_query($mysqli, $query);
                       </a>
                     </div>
                     <div class="main-menubar d-flex align-items-center">
-                          <!-- <div class="button-group-area mt-40">
-                          <a href="#" class="genric-btn primary-border radius">View My Listings<span class="lnr lnr-arrow-right"></span></a>
-                          </div>&nbsp; -->
                           <div class="button-group-area mt-40">
                           <a href="search.php" class="genric-btn primary-border radius">Home<span class="lnr lnr-arrow-right"></span></a>
                           </div>&nbsp;
@@ -80,53 +58,63 @@ $result = mysqli_query($mysqli, $query);
     <!--Search Area-->
 
 
+
         <footer class="section-gap footer-widget-area">
         <div class="section-top-border">
           <div class="row">
             <div class="col-lg-8 col-md-8">
               <div class="overlay"></div>
-                  <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                     <div id="mc_embed_signup">
-                        <h3 class="mb-30">My Listings</h3>
+              <div class="container">
+      <section class="col-xs-12 col-sm-6 col-md-12">
 
 <!-- PHP script in between to access data and put it into the table -->
-<table align="left" border = "1px" style="width:600px; line-height:40px;">
-  <th> Name </th>
-  <th> Author </th>
-  <th> Price </th>
-  <th> ISBN </th>
-  <th> Additional_Information </th>
 
-  <?php
 
-  if(mysqli_num_rows($result) > 0){
-    //outputting data to table
-    while($row = mysqli_fetch_assoc($result)){
+<?php
+// Enable error logging:
+error_reporting(E_ALL ^ E_NOTICE);
+// mysqli connection via user-defined function
+//establishes a connection with database
+include('./config.php');
 
-  ?>
+session_start();
 
-<tr>
-  <td><?php echo $row["Name"]; ?></td>
-  <td><?php echo $row["Author"]; ?></td>
-  <td><?php echo $row['Price']; ?></td>
-  <td><?php echo $row['ISBN']; ?></td>
-  <td><?php echo $row['Additional_Information']; ?></td>
-</tr>
-<!--      echo "Name: " . $row["Name"]. " - Author: " . $row["Author"] . " - Price: " . $row["Price"] . " - ISBN: " . $row["ISBN"] . " - Addn Info. " . $row["Additional_Information"] . "<br>";
--->
-  <?php  }
+$mysqli = get_mysqli_conn();
 
-  }
+$username = $_SESSION['username'];
+$userid = $_SESSION['userid'];
 
-  else{
-    echo "0 Results";
-  }
+$query = "SELECT l.Image,l.Name, l.Author, l.Price,l.ISBN, l.Additional_Information FROM((LISTINGS l NATURAL JOIN HAS h) NATURAL JOIN USERS u) WHERE h.USERID = $userid";
 
-  ?>
-</table>
-                          </div>
-                        </form>
+$result = mysqli_query($mysqli, $query);
+
+          
+if ($result->num_rows > 0) {
+    echo'<h2 class = "mb30">My Listings</h2><div class="table-container"><table class = "table table-filter"><tr><td>Image</td><td>Name</td><td>Author</td><td>Price</td><td>ISBN</td><td>Additional Information</td></tr>';
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "<tr>";
+      echo '<td><img src="data:image/jpeg;base64,'.base64_encode( $row['Image'] ).'"height="100" width="100"/></td>';
+      echo "<td>" . $row['Name']. "</td>";
+      echo "<td>" . $row['Author']. "</td>";
+      echo "<td>" . $row['Price']. "</td>";
+      echo "<td>" . $row['ISBN']. "</td>";
+      echo "<td>" . $row['Additional_Information']. "</td>";
+      echo "</tr>";
+    }
+    $db = mysqli_connect("localhost","root","","DbName"); //keep your db name
+
+    echo "</table>";
+     echo "</div>";
+} else {
+    echo "0 results";
+} 
+$mysqli->close();
+?>                          
+
+                           </section>
+                           </div>   
+
                         </div>
                       </div>
                     </div>

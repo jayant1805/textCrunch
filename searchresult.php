@@ -1,7 +1,4 @@
-<?php
- //  include('session.php');
-   include("config.php");
-?>
+
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -44,7 +41,7 @@
         <div class="header-wrap">
           <div class="header-top d-flex justify-content-between align-items-center">
                     <div class="logo">
-                      <a href="index.php">
+                      <a href="index.html">
                         <div class="Logo">
                         <h1>TextCrunch <br>
                         </div>
@@ -80,27 +77,71 @@
      </hgroup>
 
     <section class="col-xs-12 col-sm-6 col-md-12">
-    <article class="search-result row">
-      <div class="col-xs-12 col-sm-12 col-md-3">
-        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-2">
-        <ul class="meta-search">
-          <li><i class="glyphicon glyphicon-calendar"></i> <span>02/15/2014</span></li>
-          <li><i class="glyphicon glyphicon-time"></i> <span>4:28 pm</span></li>
-          <li><i class="glyphicon glyphicon-tags"></i> <span>People</span></li>
-        </ul>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>            
-                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
-      </div>
-      <span class="clearfix borda"></span>
-    </article>
 
   </section>
-</div>
+</div>                
+<?php
+// Enable error logging:
+error_reporting(E_ALL ^ E_NOTICE);
+// mysqli connection via user-defined function
+
+include('./config.php');
+$mysqli = get_mysqli_conn();
+
+//Store LID from drop down
+$lid = $_GET['LID'];
+
+
+// SQL statement
+$sql = "SELECT * FROM LISTINGS WHERE Name LIKE '%Stats%' || Author LIKE '% %' || ISBN LIKE '% %'"
+/*
+"SELECT * "
+  . "FROM ((RESTAURANTS_DETAILS r NATURAL JOIN IS_OF i) NATURAL JOIN RESTAURANT_TYPE t), HAS h "
+  . "WHERE h.LID = $lid AND h.RID = r.RID ";
+*/
+$result  = mysqli_query($mysqli, $sql);
+
+// Prepared statement, stage 1: prepare
+$stmt = $mysqli->prepare($sql);
+
+// "i" for integer, "d" for double, "s" for string, "b" for blob
+$stmt->bind_param('i', $lid);
+
+// Prepared statement, stage 2: execute
+$stmt->execute();
+
+//Bind result variables
+/*$stmt->bind_result($RID, $Hours_of_Ops, $Name, $Pricing, $Website, $Contact_num, $Contact_email, $Menu, $Type, $Accessibility, $Parking_space, $Home_delivery_takeout, $Patio_seating);*/
+$stmt->bind_result($image, $Name, $Author, $Price, $ISBN, $Additional_Information);
+
+/* fetch values (table) */
+echo '<div class = "tables">';
+echo"<table border='1'>";
+echo"<tr><td>Image</td><td>Name</td><td>Author</td><td>Price</td><td>ISBN</td><td>Additional Information</td><td>";
+while($row=mysqli_fetch_array($result)){
+      echo "<tr>";
+      echo "<td>" . $row['Image']. "</td>";
+      echo "<td>" . $row['NAME']. "</td>";
+      echo "<td>" . $row['Author']. "</td>";
+      echo "<td>" . $row['Price']. "</td>";
+      echo "<td>" . $row['ISBN']. "</td>";
+      echo "<td>" . $row['Additional_Information']. "</td>";
+      echo "<td>" . "<div class="button-group-area mt-10">".
+                    "<input type="submit" value="Submit">"."</div>";
+      echo "</tr>";
+      }
+
+  echo "</table>";
+  echo '</div>';
+
+session_start();
+$_SESSION['LID'] = $lid;
+
+/* close statement and connection*/
+$stmt->close();
+$mysqli->close();
+?>
+
                         </div>
                       </div>
                     </div>

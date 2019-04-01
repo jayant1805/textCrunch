@@ -57,7 +57,7 @@ session_start();
 
 </head>
 
-<body class="dup-body">
+<body>
   <div class="dup-body-wrap">
        <header class="default-header">
         <div class="header-wrap">
@@ -79,10 +79,6 @@ session_start();
       </header>
 <div class="section-top-border">
   <div class="row">
-  <div class="col-lg-8 col-md-8">
-  <div class="row justify-content-center">
-  <div class="col-lg-6">
-  <div id="mc_embed_signup">
 
   <div class="user">
     <header class="user__header">
@@ -104,13 +100,12 @@ session_start();
         </div>
 
         <button class="btn" name="login" type="submit">Login</button>
+
     </form>
   </div>
   </div>
-  </div>
-  </div>
-  </div>
-  </div>
+
+
 </div>
     <script  src="js/index.js"></script>
 
